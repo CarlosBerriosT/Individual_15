@@ -53,8 +53,12 @@
             app:popUpToInclusive="true"
             app:destination="@id/home_dest"/>
     </fragment>
-
     <!--TODO STEP 1 Create a new navigation destination pointing to SettingsFragment -->
+        <fragment
+            android:id="@+id/settings_dest"
+            android:name="com.example.basicnavigationstepbystep.SettingsFragment"
+            android:label="settings_fragment"
+            tools:layout="@layout/settings_fragment" />
     <!--END STEP 1 -->
 
 </navigation>
