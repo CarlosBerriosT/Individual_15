@@ -6,10 +6,12 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 public class HomeFragment extends Fragment {
 
@@ -26,6 +28,8 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         //TODO STEP 2 - Set an OnClickListener, using Navigation.createNavigateOnClickListener()
+        Button navigateButton = (Button) getView().findViewById(R.id.navigate_destination_button);
+        navigateButton.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.flow_step_one_dest,null));
         //END STEP 2
 
         //TODO STEP 3 - Set NavOptions
