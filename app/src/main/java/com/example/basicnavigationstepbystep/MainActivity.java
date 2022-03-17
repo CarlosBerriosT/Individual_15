@@ -7,8 +7,10 @@ import android.view.MenuItem;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -77,12 +79,17 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        return super.onOptionsItemSelected(item);
+        //return super.onOptionsItemSelected(item);
         //TODO STEP 8 - Have Navigation UI Handle the item selection -
         // make sure to comment or delete the old return statement above
         // Have the NavigationUI look for an action or destination matching the menu
         // item id and navigate there if found.
         // Otherwise, bubble up to the parent.
+        if (NavigationUI.onNavDestinationSelected(item, Navigation.findNavController(this, R.id.my_nav_host_fragment)))
+            return true;
+        else {
+            return super.onOptionsItemSelected(item);
+        }
         //END STEP 8
     }
 
