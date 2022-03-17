@@ -11,6 +11,8 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentController;
+import androidx.navigation.NavController;
 import androidx.navigation.NavOptions;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
@@ -18,6 +20,8 @@ import androidx.navigation.fragment.NavHostFragment;
 public class HomeFragment extends Fragment {
 
     private Fragment thisFragment=this;
+
+    private NavController thisNavController;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -28,6 +32,8 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        thisNavController = NavHostFragment.findNavController(thisFragment);
 
         //TODO STEP 2 - Set an OnClickListener, using Navigation.createNavigateOnClickListener()
         Button navigateButton = (Button) getView().findViewById(R.id.navigate_destination_button);
@@ -57,11 +63,31 @@ public class HomeFragment extends Fragment {
         //END STEP 3
 
         //TODO STEP 4 - OnClickListener to navigate using an action
-        Button actionButton = (Button) view.findViewById(R.id.navigate_action_button);
-        actionButton.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.next_action,null));
+//        Button actionButton = (Button) view.findViewById(R.id.navigate_action_button);
+//        actionButton.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.next_action,null));
         //END STEP 4
 
         //TODO STEP 7 - Update the OnClickListener to navigate using an action and using  ...Direction clases for arguments
+        Button actionButton = (Button) getView().findViewById(R.id.navigate_action_button);
+        actionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Es el primer elemento en el flujo de navegación, le pongo el valor 1
+                int flowStepNumber=1;
+
+                //Creamos un objeto action de tipo HomeFragmentDirections.NextAction
+                HomeFragmentDirections.NextAction action = HomeFragmentDirections.nextAction();
+
+                //Llamo al metoto que setea el argumento y le paso el valor.
+                action.setFlowStepNumber(flowStepNumber);
+
+                //Ejecuto la navegación con el método navigate
+                //Lo puedo hacer de esta manera
+                    //NavHostFragment.findNavController(thisFragment).navigate(action);
+                //O de esta, que escribo menos código, necesito crear el thisFragmentController arriba.
+                    thisNavController.navigate(action);
+            }
+        });
         //END STEP 7
 
     }
