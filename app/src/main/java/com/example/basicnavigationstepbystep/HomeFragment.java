@@ -11,7 +11,9 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavOptions;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 
 public class HomeFragment extends Fragment {
 
@@ -29,10 +31,29 @@ public class HomeFragment extends Fragment {
 
         //TODO STEP 2 - Set an OnClickListener, using Navigation.createNavigateOnClickListener()
         Button navigateButton = (Button) getView().findViewById(R.id.navigate_destination_button);
-        navigateButton.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.flow_step_one_dest,null));
+        //Comentamos la siguiente línea como paso previo del STEP 3
+        //navigateButton.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.flow_step_one_dest,null));
         //END STEP 2
 
         //TODO STEP 3 - Set NavOptions
+        //Creamos el objeto navigation Builder y utilizamos los métodos para cargar las animaciones.
+        NavOptions.Builder navOptionsBuilder = new NavOptions.Builder();
+        navOptionsBuilder.setEnterAnim(R.anim.slide_in_right);
+        navOptionsBuilder.setExitAnim(R.anim.slide_out_left);
+        navOptionsBuilder.setPopExitAnim(R.anim.slide_out_right);
+        navOptionsBuilder.setPopEnterAnim(R.anim.slide_in_left);
+
+        //Creamos el objeto NavOptions
+        final NavOptions options = navOptionsBuilder.build();
+
+        //En el navigateButton del STEP2 le colocamos el listener aquí, por eso comentamos el de allí.
+        navigateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NavHostFragment.findNavController(thisFragment).navigate(R.id.flow_step_one_dest,null,options);
+            }
+        });
+
         //END STEP 3
 
         //TODO STEP 4 - OnClickListener to navigate using an action
