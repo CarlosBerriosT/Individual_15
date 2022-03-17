@@ -23,7 +23,17 @@ public class FlowStepFragment extends Fragment {
         //END STEP 5
 
         //TODO STEP 6  - Use type-safe arguments - remove previous line!
-        return inflater.inflate(R.layout.flow_step_one_fragment, container, false);
+        int destLayout = R.id.flow_step_one_dest; //inicializamos a un valor por defecto.
+        switch (flowStepNumber) {
+            case 1:
+                destLayout = R.layout.flow_step_one_fragment;
+                break;
+            case 2:
+                destLayout = R.layout.flow_step_two_fragment;
+                break;
+        }
+//        return inflater.inflate(R.layout.flow_step_one_fragment, container, false);
+        return inflater.inflate(destLayout, container, false);
         //END STEP 6
 
     }
