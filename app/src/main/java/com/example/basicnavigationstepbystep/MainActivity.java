@@ -6,6 +6,7 @@ import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
@@ -14,6 +15,9 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+
+import java.util.HashSet;
+import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration appBarConfiguration;
@@ -33,10 +37,23 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = host.getNavController();
 
         //TODO STEP 11  - Create an AppBarConfiguration with the correct top-level destinations
-        appBarConfiguration =  new AppBarConfiguration.Builder(navController.getGraph()).build();
+        //appBarConfiguration =  new AppBarConfiguration.Builder(navController.getGraph()).build();
 
         // You should also remove the old appBarConfiguration setup above
+        DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
 
+        Set<Integer> topLevelDestinations = new HashSet<>();
+        topLevelDestinations.add(R.id.home_dest);
+        topLevelDestinations.add(R.id.settings_dest);
+
+        if (null != drawerLayout) {
+            appBarConfiguration = new AppBarConfiguration.Builder(topLevelDestinations)
+                    .setDrawerLayout(drawerLayout)
+                    .build();
+        }
+        else {
+            appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
+        }
         //END STEP 11
 
         setupActionBar(navController, appBarConfiguration);
