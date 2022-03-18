@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
         Set<Integer> topLevelDestinations = new HashSet<>();
         topLevelDestinations.add(R.id.home_dest);
-        topLevelDestinations.add(R.id.settings_dest);
+        //topLevelDestinations.add(R.id.settings_dest);
 
         if (null != drawerLayout) {
             appBarConfiguration = new AppBarConfiguration.Builder(topLevelDestinations)
@@ -92,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
         // This allows NavigationUI to decide what label to show in the action bar
         // By using appBarConfig, it will also determine whether to
         // show the up arrow or drawer menu icon
+        NavigationUI.setupActionBarWithNavController(this, navController,appBarConfiguration);
         //END STEP 12
     }
 
@@ -125,6 +126,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //TODO STEP 12  - Have NavigationUI handle up behavior in the ActionBar
+    @Override
+    public boolean onSupportNavigateUp() {
+        // Allows NavigationUI to support proper up navigation or the drawer layout
+        // drawer menu, depending on the situation
+        return NavigationUI.navigateUp(Navigation.findNavController(this, R.id.my_nav_host_fragment), appBarConfiguration);
+    }
     //END STEP 12
 
 }
