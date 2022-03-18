@@ -12,6 +12,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -47,6 +48,13 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupBottomNavMenu(NavController navController) {
         //TODO STEP 9 - Use NavigationUI to set up Bottom Nav
+        //ATENCION - PARA QUE ESTO FUNCIONE DE ESTA MANERA, LA VERSION DE
+        //LA DEPENDENCIA navigation.ui: debe ser la 2.3.5
+        //Versiones más modernas utilizan multiples back stacks y esto cambia.
+        BottomNavigationView bottomNav = findViewById(R.id.bottom_nav_view);
+        if (null != bottomNav) {
+            NavigationUI.setupWithNavController(bottomNav,navController);
+        }
         //END STEP 9
     }
 
