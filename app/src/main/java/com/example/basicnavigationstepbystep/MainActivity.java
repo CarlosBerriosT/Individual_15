@@ -60,6 +60,12 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupNavigationMenu(NavController navController) {
         //TODO STEP 10 - Use NavigationUI to set up a Navigation View
+        // In split screen mode, you can drag this view out from the left
+        // This does NOT modify the actionbar
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        if (navigationView != null){
+            NavigationUI.setupWithNavController(navigationView,navController);
+        }
         //END STEP 10
     }
 
